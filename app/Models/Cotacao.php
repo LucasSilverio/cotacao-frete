@@ -54,7 +54,7 @@ class Cotacao extends Model
             $transportadora = $e['transportadora_id'];
             $percentual = $e['percentual_cotacao'];
             $valor_extra = $e['valor_extra'];            
-            $resultado[$transportadora] = $this->calcularCusto($valor_pedido, $percentual, $valor_extra);         
+            $resultado[$transportadora] = $this->calcularCusto($valor_pedido, $percentual, $valor_extra);  
         }
 
         return $this->filtrarMelhoresValores($resultado);
@@ -70,12 +70,16 @@ class Cotacao extends Model
     private function filtrarMelhoresValores($resultado){
         $melhoresPrecos = array();
         
-
+        
         while(count($melhoresPrecos) < 3)
         {
+            $a = array();
             $melhorPreco = min($resultado);
             $indice = array_search($melhorPreco, $resultado);
-            $melhoresPrecos[$indice] = $melhorPreco;
+            // $melhoresPrecos[$indice] = $melhorPreco;
+            $a['transportadora'] = $indice;
+            $a['preco'] = $melhorPreco;
+            array_push($melhoresPrecos, $a);
             unset($resultado[$indice]);
         }
 

@@ -18,7 +18,7 @@ class TransportadoraController extends Controller
      */
     public function index()
     {
-        //
+        return $this->transportadora->all();
     }
 
     /**
