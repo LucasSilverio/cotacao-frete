@@ -69,21 +69,40 @@ class Cotacao extends Model
 
     private function filtrarMelhoresValores($resultado){
         $melhoresPrecos = array();
-        
-        
-        while(count($melhoresPrecos) < 3)
+        $i = 1;
+        if(count($resultado) < 3)
         {
-            $a = array();
-            $melhorPreco = min($resultado);
-            $indice = array_search($melhorPreco, $resultado);
-            // $melhoresPrecos[$indice] = $melhorPreco;
-            $a['transportadora'] = $indice;
-            $a['preco'] = $melhorPreco;
-            array_push($melhoresPrecos, $a);
-            unset($resultado[$indice]);
+            while(count($melhoresPrecos) <= count($resultado))
+            {
+                $a = array();
+                $melhorPreco = min($resultado);
+                $indice = array_search($melhorPreco, $resultado);
+                $a['rank'] = $i;
+                $a['transportadora'] = $indice;
+                $a['preco'] = $melhorPreco;
+                array_push($melhoresPrecos, $a);
+                unset($resultado[$indice]);
+                $i++;
+            }
+        }else
+        {
+            while(count($melhoresPrecos) < 3)
+            {
+                $a = array();
+                $melhorPreco = min($resultado);
+                $indice = array_search($melhorPreco, $resultado);
+                $a['rank'] = $i;
+                $a['transportadora'] = $indice;
+                $a['preco'] = $melhorPreco;
+                array_push($melhoresPrecos, $a);
+                unset($resultado[$indice]);
+                $i++;
+            }
         }
+        
 
         return $melhoresPrecos;
     }
+    
     
 }

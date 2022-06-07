@@ -40,10 +40,9 @@
                             <option value="SP">São Paulo</option>
                             <option value="SE">Sergipe</option>
                             <option value="TO">Tocantins</option>
-                            <option value="EX">Estrangeiro</option>
                         </select>
                         <label>Percentual de Cotação (%)</label>
-                        <input type="text" v-model="percentual" class="form-control mb-3" id="percentual"/>
+                        <input type="number" v-model="percentual" class="form-control mb-3" id="percentual"/>
                         <label>Valor Extra (R$)</label>
                         <input type="text" v-model="valorExtra" class="form-control mb-3" id="valorExtra"/>
                         <button class="form-control btn-primary mb-3" @click="salvar()">Salvar</button>
@@ -86,7 +85,6 @@
                             <option value="SP">São Paulo</option>
                             <option value="SE">Sergipe</option>
                             <option value="TO">Tocantins</option>
-                            <option value="EX">Estrangeiro</option>
                         </select>
                         <label>Valor do Pedido (R$)</label>
                         <input type="text" v-model="valorPedido" class="form-control mb-3"/>
@@ -102,7 +100,7 @@
                             </thead>
                                 <tbody>
                                     <tr v-for="resultado in resultados" :key="resultado.transportadora">
-                                        <th scope="row">1</th>
+                                        <th scope="row">{{resultado.rank}}</th>
                                         <td>{{resultado.transportadora}}</td>
                                         <td>{{"R$"+resultado.preco.toFixed(2)}}</td>
                                     </tr>
@@ -178,7 +176,6 @@ import axios from 'axios';
             },
 
             salvar(){
-                console.log(this.trasportadoraSelecionada, this.uf, this.percentual, this.valorExtra);
                 let formData = new FormData();
                 formData.append('uf', this.uf)
                 formData.append('percentual_cotacao', this.percentual)
@@ -194,7 +191,6 @@ import axios from 'axios';
 
                 axios.post(this.urlBase, formData, config)
                     .then(response => {
-                        console.log(response)
                         this.requisicaoStatus = "sucesso";
                         this.requisicaoMsg = "Cadastro realizado com sucesso!";
                     })
@@ -203,9 +199,12 @@ import axios from 'axios';
                         this.requisicaoStatus = "erro";
                         this.requisicaoMsg = errors.response.data.erro;
                     })
+
+                    
             },
 
-            cotar(){
+            cotar()
+            {
                 let formData = new FormData();
                 formData.append('uf', this.ufCotacao)
                 formData.append('valor_pedido', this.valorPedido)
@@ -231,7 +230,7 @@ import axios from 'axios';
                         this.requisicaoMsg = errors.response.data.erro;
                         this.resultados = null;
                     })
-            }
+            },
         },
         created(){
             this.getTransportadoras();

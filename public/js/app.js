@@ -2238,8 +2238,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
@@ -2281,7 +2279,6 @@ __webpack_require__.r(__webpack_exports__);
     salvar: function salvar() {
       var _this3 = this;
 
-      console.log(this.trasportadoraSelecionada, this.uf, this.percentual, this.valorExtra);
       var formData = new FormData();
       formData.append('uf', this.uf);
       formData.append('percentual_cotacao', this.percentual);
@@ -2294,7 +2291,6 @@ __webpack_require__.r(__webpack_exports__);
         }
       };
       axios__WEBPACK_IMPORTED_MODULE_0___default().post(this.urlBase, formData, config).then(function (response) {
-        console.log(response);
         _this3.requisicaoStatus = "sucesso";
         _this3.requisicaoMsg = "Cadastro realizado com sucesso!";
       })["catch"](function (errors) {
@@ -38196,10 +38192,6 @@ var render = function () {
                 _c("option", { attrs: { value: "SE" } }, [_vm._v("Sergipe")]),
                 _vm._v(" "),
                 _c("option", { attrs: { value: "TO" } }, [_vm._v("Tocantins")]),
-                _vm._v(" "),
-                _c("option", { attrs: { value: "EX" } }, [
-                  _vm._v("Estrangeiro"),
-                ]),
               ]
             ),
             _vm._v(" "),
@@ -38215,7 +38207,7 @@ var render = function () {
                 },
               ],
               staticClass: "form-control mb-3",
-              attrs: { type: "text", id: "percentual" },
+              attrs: { type: "number", id: "percentual" },
               domProps: { value: _vm.percentual },
               on: {
                 input: function ($event) {
@@ -38387,10 +38379,6 @@ var render = function () {
                 _c("option", { attrs: { value: "SE" } }, [_vm._v("Sergipe")]),
                 _vm._v(" "),
                 _c("option", { attrs: { value: "TO" } }, [_vm._v("Tocantins")]),
-                _vm._v(" "),
-                _c("option", { attrs: { value: "EX" } }, [
-                  _vm._v("Estrangeiro"),
-                ]),
               ]
             ),
             _vm._v(" "),
@@ -38440,7 +38428,9 @@ var render = function () {
                 "tbody",
                 _vm._l(_vm.resultados, function (resultado) {
                   return _c("tr", { key: resultado.transportadora }, [
-                    _c("th", { attrs: { scope: "row" } }, [_vm._v("1")]),
+                    _c("th", { attrs: { scope: "row" } }, [
+                      _vm._v(_vm._s(resultado.rank)),
+                    ]),
                     _vm._v(" "),
                     _c("td", [_vm._v(_vm._s(resultado.transportadora))]),
                     _vm._v(" "),
